@@ -1,0 +1,6 @@
+{
+  "Name": "NubankRpaCase",
+  "ProjectType": "Process",
+  "Description": "RPA case study for Nubank.",
+  "MainFile": "Main.xaml"
+}
