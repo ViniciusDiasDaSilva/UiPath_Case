@@ -1,6 +1,6 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="GetSalesList" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="out_dt_SalesList" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
   <VisualBasic.Settings>
     <x:Null />
@@ -105,9 +105,10 @@
       <AssemblyReference>System.Data.SqlClient</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GetSalesList" sap:VirtualizedContainerService.HintSize="1287,577.6566666666666" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GetSalesList" sap:VirtualizedContainerService.HintSize="1561,721" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="pdf_text" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_SalesList" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -115,7 +116,13 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:ReadPDFText DisplayName="Read PDF Text" FileName="Data\Input\Sales List.pdf" sap:VirtualizedContainerService.HintSize="450,115" sap2010:WorkflowViewState.IdRef="ReadPDFText_1" PreserveFormatting="True" Range="All" Text="[pdf_text]" />
-    <ui:GenerateDataTable ColumnSizes="{x:Null}" Positions="{x:Null}" CSVParsing="False" ColumnSeparators=" " DataTable="[out_dt_SalesList]" DisplayName="Generate Data Table From Text" sap:VirtualizedContainerService.HintSize="450,235" sap2010:WorkflowViewState.IdRef="GenerateDataTable_1" Input="[pdf_text]" NewLineSeparator="\\\\r\\\\n\\\\r\\\\n" UseColumnHeader="True" />
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,166" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;wait&quot;]" />
+    <ui:GenerateDataTable ColumnSizes="{x:Null}" Positions="{x:Null}" CSVParsing="False" ColumnSeparators=" " DataTable="[dt_SalesList]" DisplayName="Generate Data Table From Text" sap:VirtualizedContainerService.HintSize="450,235" sap2010:WorkflowViewState.IdRef="GenerateDataTable_1" Input="[pdf_text]" NewLineSeparator="\\\\r\\\\n\\\\r\\\\n" UseColumnHeader="True" />
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;Write Sales List in Excel File&quot;]" />
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="EXCEL_WriteSalesListInExcel - Invoke Workflow File (Solution\EXCEL\EXCEL_WriteSalesListInExcel.xaml)" sap:VirtualizedContainerService.HintSize="450,173" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Solution\EXCEL\EXCEL_WriteSalesListInExcel.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_SalesListDataTable">[dt_SalesList]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
   </Sequence>
 </Activity>
