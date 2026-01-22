@@ -121,12 +121,14 @@
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
       <AssemblyReference>System.Collections.Specialized</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GetPostalCode" sap:VirtualizedContainerService.HintSize="1281,1433" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GetPostalCode" sap:VirtualizedContainerService.HintSize="1214,1515" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="postalCodeResponse" />
-      <Variable x:TypeArguments="njl:JArray" Name="jsArrayPCode" />
+      <Variable x:TypeArguments="njl:JObject" Name="jObject" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -141,20 +143,20 @@
         <InArgument x:TypeArguments="x:String">["01034903"]</InArgument>
       </Assign.Value>
     </Assign>
-    <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" Headers="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" TextPayload="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="HTTP Request" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" FormDataParts="[New List (Of FormDataPart) From _&#xD;&#xA;{&#xD;&#xA;&#x9;New FileFormDataPart(),&#xD;&#xA;&#x9;New BinaryFormDataPart(),&#xD;&#xA;&#x9;New TextFormDataPart()&#xD;&#xA;}]" sap:VirtualizedContainerService.HintSize="450,277" sap2010:WorkflowViewState.IdRef="NetHttpRequest_1" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="GET" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="None" RequestUrl="[&quot;https://brasilapi.com.br/api/cep/v1/&quot; + in_postalCode]" Result="[postalCodeResponse]" RetryCount="3" RetryPolicyType="Basic" RetryStatusCodes="[New List (Of System.Net.HttpStatusCode) From _&#xD;&#xA;{&#xD;&#xA;&#x9;System.Net.HttpStatusCode.RequestTimeout,&#xD;&#xA;&#x9;System.Net.HttpStatusCode.TooManyRequests,&#xD;&#xA;&#x9;System.Net.HttpStatusCode.InternalServerError,&#xD;&#xA;&#x9;System.Net.HttpStatusCode.BadGateway,&#xD;&#xA;&#x9;System.Net.HttpStatusCode.ServiceUnavailable,&#xD;&#xA;&#x9;System.Net.HttpStatusCode.GatewayTimeout&#xD;&#xA;}]" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+    <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" Headers="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" TextPayload="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="HTTP Request" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" FormDataParts="[New List (Of FormDataPart) From _&#xA;{&#xA;&#x9;New FileFormDataPart(),&#xA;&#x9;New BinaryFormDataPart(),&#xA;&#x9;New TextFormDataPart()&#xA;}]" sap:VirtualizedContainerService.HintSize="450,277" sap2010:WorkflowViewState.IdRef="NetHttpRequest_1" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="GET" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="None" RequestUrl="[&quot;https://brasilapi.com.br/api/cep/v1/&quot; + in_postalCode]" Result="[postalCodeResponse]" RetryCount="3" RetryPolicyType="Basic" RetryStatusCodes="[New List (Of System.Net.HttpStatusCode) From _&#xA;{&#xA;&#x9;System.Net.HttpStatusCode.RequestTimeout,&#xA;&#x9;System.Net.HttpStatusCode.TooManyRequests,&#xA;&#x9;System.Net.HttpStatusCode.InternalServerError,&#xA;&#x9;System.Net.HttpStatusCode.BadGateway,&#xA;&#x9;System.Net.HttpStatusCode.ServiceUnavailable,&#xA;&#x9;System.Net.HttpStatusCode.GatewayTimeout&#xA;}]" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
       <uwah:NetHttpRequest.TimeoutInMiliseconds>
         <InArgument x:TypeArguments="s:Nullable(x:Int32)">
           <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="10000" />
         </InArgument>
       </uwah:NetHttpRequest.TimeoutInMiliseconds>
     </uwah:NetHttpRequest>
-    <ui:DeserializeJsonArray DisplayName="Deserialize JSON Array" sap:VirtualizedContainerService.HintSize="450,92" sap2010:WorkflowViewState.IdRef="DeserializeJsonArray_2" JsonArray="[jsArrayPCode]" JsonString="[postalCodeResponse.TextContent]" />
+    <ui:DeserializeJson x:TypeArguments="njl:JObject" JsonSample="{x:Null}" Settings="{x:Null}" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="450,174" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[jObject]" JsonString="[postalCodeResponse.TextContent]" />
     <Assign sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_4">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_state]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[jsArrayPCode(0)("state").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String">[jObject("state").ToString]</InArgument>
       </Assign.Value>
     </Assign>
     <Assign sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_2">
@@ -162,7 +164,7 @@
         <OutArgument x:TypeArguments="x:String">[out_city]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[jsArrayPCode(0)("city").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String">[jObject("city").ToString]</InArgument>
       </Assign.Value>
     </Assign>
     <Assign sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_5">
@@ -170,7 +172,7 @@
         <OutArgument x:TypeArguments="x:String">[out_street]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[jsArrayPCode(0)("street").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String">[jObject("street").ToString]</InArgument>
       </Assign.Value>
     </Assign>
     <Assign sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="Assign_3">
@@ -178,7 +180,7 @@
         <OutArgument x:TypeArguments="x:String">[out_neighborhood]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[jsArrayPCode(0)("neighborhood").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String">[jObject("neighborhood").ToString]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,166" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;neighborhood&quot;]" />
