@@ -124,18 +124,23 @@
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
       <AssemblyReference>System.Linq.Async</AssemblyReference>
       <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="EXCEL_ModifySalesListFile" sap:VirtualizedContainerService.HintSize="1214,2379" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence to add information acquired via API, such as: Currency and Postal code." DisplayName="EXCEL_ModifySalesListFile" sap:VirtualizedContainerService.HintSize="1214,2951" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_SalesList" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Aux" />
+      <Variable x:TypeArguments="x:Int32" Name="rowCount" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="488,293" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" WorkbookPath="Data\Temp\SalesList.xlsx">
+    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="488,293" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" WorkbookPath="Data\Temp\SalesList.xlsx">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -158,21 +163,56 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ExcelApplicationScope>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_SalesList]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="488,1361" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:FilterDataTable DataTable="[dt_SalesList]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="488,195" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[dt_Aux]" SelectColumnsMode="Remove">
+      <ui:FilterDataTable.Filters>
+        <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
+          <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
+            <ui:FilterOperationArgument.Column>
+              <InArgument x:TypeArguments="x:String">["VENDOR ID"]</InArgument>
+            </ui:FilterOperationArgument.Column>
+            <ui:FilterOperationArgument.Operand>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("VendorID").ToString]</InArgument>
+            </ui:FilterOperationArgument.Operand>
+          </ui:FilterOperationArgument>
+          <ui:FilterOperationArgument BooleanOperator="And" Operator="CONTAINS">
+            <ui:FilterOperationArgument.Column>
+              <InArgument x:TypeArguments="x:String">["INVOICE"]</InArgument>
+            </ui:FilterOperationArgument.Column>
+            <ui:FilterOperationArgument.Operand>
+              <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("INVOICE").ToString]</InArgument>
+            </ui:FilterOperationArgument.Operand>
+          </ui:FilterOperationArgument>
+        </scg:List>
+      </ui:FilterDataTable.Filters>
+      <ui:FilterDataTable.SelectColumns>
+        <scg:List x:TypeArguments="InArgument" Capacity="4">
+          <x:Null />
+        </scg:List>
+      </ui:FilterDataTable.SelectColumns>
+    </ui:FilterDataTable>
+    <Assign sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[rowCount]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">[1]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_SalesList]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="488,1568" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486,1179" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486,1386" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <If Condition="[CurrentRow.Item(&quot;VENDOR ID&quot;).ToString = in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString AND in_TransactionItem.SpecificContent(&quot;INVOICE&quot;).ToString.Contains(CurrentRow.Item(&quot;INVOICE&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="452,1115" sap2010:WorkflowViewState.IdRef="If_1">
+            <If Condition="[CurrentRow.Item(&quot;VENDOR ID&quot;).ToString = in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString AND in_TransactionItem.SpecificContent(&quot;INVOICE&quot;).ToString.Contains(CurrentRow.Item(&quot;INVOICE&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="452,1322" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,887" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,1094" sap2010:WorkflowViewState.IdRef="Sequence_4">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="resultRequest" />
                     <Variable x:TypeArguments="x:String" Name="unitCost" />
@@ -224,7 +264,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UpdateRowItem>
-                  <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="UNIT COST" DisplayName="Get Row Item" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="GetRowItem_1" Row="[CurrentRow]">
+                  <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="UNIT COST" DisplayName="Get Row Item" sap:VirtualizedContainerService.HintSize="416,61" sap2010:WorkflowViewState.IdRef="GetRowItem_1" Row="[CurrentRow]">
                     <ui:GetRowItem.Value>
                       <OutArgument x:TypeArguments="x:String">[unitCost]</OutArgument>
                     </ui:GetRowItem.Value>
@@ -235,7 +275,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:GetRowItem>
-                  <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="TOTAL PRICE" DisplayName="Get Row Item" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="GetRowItem_2" Row="[CurrentRow]">
+                  <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="TOTAL PRICE" DisplayName="Get Row Item" sap:VirtualizedContainerService.HintSize="416,61" sap2010:WorkflowViewState.IdRef="GetRowItem_2" Row="[CurrentRow]">
                     <ui:GetRowItem.Value>
                       <OutArgument x:TypeArguments="x:String">[totalPrice]</OutArgument>
                     </ui:GetRowItem.Value>
@@ -246,8 +286,10 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:GetRowItem>
-                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="GetTheCurrencyQuote - Invoke Workflow File (Solution\GetTheCurrencyQuote.xaml)" sap:VirtualizedContainerService.HintSize="416,182" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Solution\GetTheCurrencyQuote.xaml">
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="GetTheCurrencyQuote - Invoke Workflow File (Solution\GetTheCurrencyQuote.xaml)" sap:VirtualizedContainerService.HintSize="416,186" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Solution\GetTheCurrencyQuote.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:Int32" x:Key="in_rowControl">[dt_Aux.RowCount]</InArgument>
+                      <InArgument x:TypeArguments="x:Int32" x:Key="in_rowCount">[rowCount]</InArgument>
                       <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_invoice">[CurrentRow("INVOICE").ToString]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_Currency">[totalPrice.ToString.Split(" "c).Last]</InArgument>
@@ -256,7 +298,7 @@
                       <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">[in_TransactionItem]</InArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
-                  <ui:UpdateRowItem ColumnIndex="{x:Null}" ColumnName="Valor Unitário (BRL)" DisplayName="Update Row Item" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="UpdateRowItem_1" Row="[CurrentRow]" Value="[CDbl(unitCost.Split(&quot; &quot;).First.Trim) * CDbl(bid)]">
+                  <ui:UpdateRowItem ColumnIndex="{x:Null}" ColumnName="Valor Unitário (BRL)" DisplayName="Update Row Item" sap:VirtualizedContainerService.HintSize="416,61" sap2010:WorkflowViewState.IdRef="UpdateRowItem_1" Row="[CurrentRow]" Value="[CDbl(unitCost.Split(&quot; &quot;).First.Trim) * CDbl(bid)]">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -264,7 +306,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UpdateRowItem>
-                  <ui:UpdateRowItem ColumnIndex="{x:Null}" ColumnName="Valor Total (BRL)" DisplayName="Update Row Item" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="UpdateRowItem_2" Row="[CurrentRow]" Value="[CDbl(totalPrice.Split(&quot; &quot;).First.Trim) * CDbl(bid)]">
+                  <ui:UpdateRowItem ColumnIndex="{x:Null}" ColumnName="Valor Total (BRL)" DisplayName="Update Row Item" sap:VirtualizedContainerService.HintSize="416,61" sap2010:WorkflowViewState.IdRef="UpdateRowItem_2" Row="[CurrentRow]" Value="[CDbl(totalPrice.Split(&quot; &quot;).First.Trim) * CDbl(bid)]">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -272,7 +314,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UpdateRowItem>
-                  <ui:UpdateRowItem ColumnIndex="{x:Null}" ColumnName="Data/Hora Conversão do Câmbio" DisplayName="Update Row Item" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="UpdateRowItem_3" Row="[CurrentRow]" Value="[quoteCreateDate]">
+                  <ui:UpdateRowItem ColumnIndex="{x:Null}" ColumnName="Data/Hora Conversão do Câmbio" DisplayName="Update Row Item" sap:VirtualizedContainerService.HintSize="416,61" sap2010:WorkflowViewState.IdRef="UpdateRowItem_3" Row="[CurrentRow]" Value="[quoteCreateDate]">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -280,6 +322,14 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UpdateRowItem>
+                  <Assign sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_2">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[rowCount]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[rowCount + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
                 </Sequence>
               </If.Then>
               <If.Else>
@@ -303,13 +353,13 @@
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEachRow>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Open Sales List.xlsx&quot;]" />
-    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="488,527" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" WorkbookPath="Data\Temp\SalesList.xlsx">
+    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="488,491" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" WorkbookPath="Data\Temp\SalesList.xlsx">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,354" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,358" sap2010:WorkflowViewState.IdRef="Sequence_6">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>

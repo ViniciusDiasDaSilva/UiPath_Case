@@ -103,9 +103,10 @@
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
       <AssemblyReference>System.Linq.Parallel</AssemblyReference>
       <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="PopulateQueue" sap:VirtualizedContainerService.HintSize="1214,2818" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence to populate the queue with the vendor IDs obtained from the input PDF list." DisplayName="PopulateQueue" sap:VirtualizedContainerService.HintSize="1214,2687" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_SalesList" />
       <Variable x:TypeArguments="scg:IEnumerable(x:Object)" Name="columnD" />
@@ -113,6 +114,7 @@
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="558,175" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Starting process to populate the work queue.&quot;]" />
@@ -153,13 +155,13 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ExcelApplicationScope>
-    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each currentItem" sap:VirtualizedContainerService.HintSize="558,1870" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[columnD]">
+    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each currentItem" sap:VirtualizedContainerService.HintSize="558,1708" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[columnD]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="currentItem" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="556,1748" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="556,1586" sap2010:WorkflowViewState.IdRef="Sequence_8">
             <Sequence.Variables>
               <Variable x:TypeArguments="sd:DataTable" Name="dt_SalesListFiltered" />
             </Sequence.Variables>
@@ -189,31 +191,20 @@
               </ui:FilterDataTable.SelectColumns>
             </ui:FilterDataTable>
             <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="522,179" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Trace" Message="[&quot;Add item to queue with vendor ID and invoice number.&quot;]" />
-            <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="522,1127" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+            <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="522,965" sap2010:WorkflowViewState.IdRef="TryCatch_1">
               <TryCatch.Try>
-                <Sequence DisplayName="Try" sap:VirtualizedContainerService.HintSize="520,634" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                <Sequence DisplayName="Try" sap:VirtualizedContainerService.HintSize="520,472" sap2010:WorkflowViewState.IdRef="Sequence_9">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="486,400" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-                    <ui:CommentOut.Body>
-                      <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="450,285" sap2010:WorkflowViewState.IdRef="Sequence_12">
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                        <ui:AddQueueItem TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="416,225" sap2010:WorkflowViewState.IdRef="AddQueueItem_2" Priority="Normal" QueueType="in_Config(&quot;OrchestratorQueueName&quot;).ToString">
-                          <ui:AddQueueItem.ItemInformation>
-                            <InArgument x:TypeArguments="x:String" x:Key="VendorID">[currentItem.ToString]</InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="INVOICE">[String.Join("; ", dt_SalesListFiltered.AsEnumerable().Where(Function(f) Not f.IsNull("INVOICE")).Select(Function(f) f("INVOICE").ToString))]</InArgument>
-                          </ui:AddQueueItem.ItemInformation>
-                        </ui:AddQueueItem>
-                      </Sequence>
-                    </ui:CommentOut.Body>
-                  </ui:CommentOut>
+                  <ui:AddQueueItem TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="486,238" sap2010:WorkflowViewState.IdRef="AddQueueItem_3" Priority="Normal" QueueType="in_Config(&quot;OrchestratorQueueName&quot;).ToString" Reference="[currentItem.ToString]">
+                    <ui:AddQueueItem.ItemInformation>
+                      <InArgument x:TypeArguments="x:String" x:Key="VendorID">[currentItem.ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="INVOICE">[String.Join("; ", dt_SalesListFiltered.AsEnumerable().Where(Function(f) Not f.IsNull("INVOICE")).Select(Function(f) f("INVOICE").ToString))]</InArgument>
+                    </ui:AddQueueItem.ItemInformation>
+                  </ui:AddQueueItem>
                   <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="486,170" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Trace" Message="[$&quot;Vendor ID {currentItem.ToString} was correctly added to the queue.&quot;]" />
                 </Sequence>
               </TryCatch.Try>

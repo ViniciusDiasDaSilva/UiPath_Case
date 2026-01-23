@@ -94,13 +94,14 @@
       <AssemblyReference>System.Linq.Expressions</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="BusinessRule_InvoiceNumber" sap:VirtualizedContainerService.HintSize="1214,1876" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence for validating the invoice number rule." DisplayName="BusinessRule_InvoiceNumber" sap:VirtualizedContainerService.HintSize="1214,1907" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap2010:Annotation.AnnotationText="Regra para validar o número da invoice no padrão especificado de apenas dígitos" DisplayName="BusinessRule Invoice Number" sap:VirtualizedContainerService.HintSize="522,1853" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence sap2010:Annotation.AnnotationText="Rule for validating the invoice number in the specified format of only digits." DisplayName="BusinessRule Invoice Number" sap:VirtualizedContainerService.HintSize="522,1853" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Boolean" Name="boolResult" />
       </Sequence.Variables>

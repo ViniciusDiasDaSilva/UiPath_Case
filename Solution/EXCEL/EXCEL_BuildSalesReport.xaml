@@ -133,7 +133,7 @@
       <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="EXCEL_BuildSalesReport" sap:VirtualizedContainerService.HintSize="1214,6833" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence to validate business rules and build the sales report." DisplayName="EXCEL_BuildSalesReport" sap:VirtualizedContainerService.HintSize="1214,6538" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_SalesList" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_VendorList" />
@@ -147,35 +147,11 @@
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="604,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;Open SalesList.xlsx &quot;]" />
-    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="604,512" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" WorkbookPath="Data\Temp\SalesList.xlsx">
-      <ui:ExcelApplicationScope.Body>
-        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
-          </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,330" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;Read Range A1 in Sheet1&quot;]" />
-            <ui:ExcelReadRange AddHeaders="True" DataTable="[dt_SalesList]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="416,87" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" Range="A1" SheetName="Sheet1" />
-          </Sequence>
-        </ActivityAction>
-      </ui:ExcelApplicationScope.Body>
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          <x:Boolean x:Key="IsPinned">False</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
-    </ui:ExcelApplicationScope>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="604,175" sap2010:WorkflowViewState.IdRef="LogMessage_3" Message="[&quot;Open Vendor List.xlsx&quot;]" />
-    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="604,512" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_3" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" WorkbookPath="Data\Input\Vendor List.xlsx">
+    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="604,472" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_3" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" WorkbookPath="Data\Input\Vendor List.xlsx">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -219,6 +195,31 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="604,175" sap2010:WorkflowViewState.IdRef="LogMessage_24" Message="[&quot;Open SalesList.xlsx &quot;]" />
+    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="604,472" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_4" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" WorkbookPath="Data\Temp\SalesList.xlsx">
+      <ui:ExcelApplicationScope.Body>
+        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,330" sap2010:WorkflowViewState.IdRef="Sequence_23">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="LogMessage_25" Message="[&quot;Read Range A1 in Sheet1&quot;]" />
+            <ui:ExcelReadRange AddHeaders="True" DataTable="[dt_SalesList]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="416,87" sap2010:WorkflowViewState.IdRef="ExcelReadRange_3" Range="A1" SheetName="Sheet1" />
+          </Sequence>
+        </ActivityAction>
+      </ui:ExcelApplicationScope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ExcelApplicationScope>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="604,175" sap2010:WorkflowViewState.IdRef="LogMessage_6" Message="[&quot;Filter data table dt_SalesList&quot;]" />
     <ui:FilterDataTable DataTable="[dt_SalesList]" DisplayName="Filter Data Table SalesList" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="604,195" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[dt_SalesList]" SelectColumnsMode="Remove">
       <ui:FilterDataTable.Filters>
@@ -281,25 +282,13 @@
         </Sequence>
       </If.Else>
     </If>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="604,175" sap2010:WorkflowViewState.IdRef="LogMessage_17" Message="[&quot;Convert data table to array&quot;]" />
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim rows As Integer = in_dtSales.Rows.Count&#xD;&#xA;Dim arrInvoice(rows - 1) As String&#xD;&#xA;Dim arrItemType(rows - 1) As String&#xD;&#xA;Dim arrValor(rows - 1) As Double&#xD;&#xA;Dim arrQty(rows - 1) As Integer&#xD;&#xA;&#xD;&#xA;For i As Integer = 0 To rows - 1&#xD;&#xA;    arrInvoice(i) = in_dtSales.Rows(i)(0).ToString&#xD;&#xA;    arrItemType(i) = in_dtSales.Rows(i)(4).ToString&#xD;&#xA;    arrValor(i) = CDbl(in_dtSales.Rows(i)(8))&#xD;&#xA;    arrQty(i) = CInt(in_dtSales.Rows(i)(5))&#xD;&#xA;Next&#xD;&#xA;out_invoice = arrInvoice&#xD;&#xA;out_itemType = arrItemType&#xD;&#xA;out_valor = arrValor&#xD;&#xA;out_qty = arrQty" DisplayName="Invoke Code" sap:VirtualizedContainerService.HintSize="604,197" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
-      <ui:InvokeCode.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtSales">[dt_SalesList]</InArgument>
-        <OutArgument x:TypeArguments="x:Object" x:Key="out_invoice">[invoice]</OutArgument>
-        <OutArgument x:TypeArguments="x:Object" x:Key="out_itemType">[itemType]</OutArgument>
-        <OutArgument x:TypeArguments="x:Object" x:Key="out_valor">[valor]</OutArgument>
-        <OutArgument x:TypeArguments="x:Object" x:Key="out_qty">[qty]</OutArgument>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtAux">[dt_Aux]</InArgument>
-      </ui:InvokeCode.Arguments>
-    </ui:InvokeCode>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="604,175" sap2010:WorkflowViewState.IdRef="LogMessage_18" Message="[&quot;End Convert&quot;]" />
-    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="520,1431" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" SensitivityOperation="None" Workbook="[wb_SalesReport]" WorkbookPath="[&quot;Data\Temp\Sales Report_&quot; + in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString]">
+    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="604,1595" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" SensitivityOperation="None" Visible="False" Workbook="[wb_SalesReport]" WorkbookPath="[&quot;Data\Temp\Sales Report_&quot; + in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="486,1321" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="486,1453" sap2010:WorkflowViewState.IdRef="Sequence_7">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Int32" Name="initRow" />
             </Sequence.Variables>
@@ -318,21 +307,21 @@
                 <InArgument x:TypeArguments="x:Int32">[18]</InArgument>
               </Assign.Value>
             </Assign>
-            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_SalesList]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="452,775" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_SalesList]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="452,792" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,598" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,606" sap2010:WorkflowViewState.IdRef="Sequence_22">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                     <ui:ExcelWriteCell Cell="[&quot;B&quot; + initRow.ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="416,124" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_1" SheetName="[in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString]" Text="[CurrentRow.Item(&quot;INVOICE&quot;).ToString + &quot;/&quot; + CurrentRow.Item(&quot;ITEM TYPE&quot;).ToString]" />
-                    <ui:ExcelWriteCell Cell="[&quot;D&quot; + initRow.ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="416,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_2" SheetName="[in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString]" Text="[CurrentRow.Item(&quot;Valor Unitário (BRL)&quot;).ToString]" />
-                    <ui:ExcelWriteCell Cell="[&quot;F&quot; + initRow.ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="416,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_3" SheetName="[in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString]" Text="[CurrentRow.Item(&quot;QTY&quot;).ToString]" />
+                    <ui:ExcelWriteCell Cell="[&quot;D&quot; + initRow.ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="416,124" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_2" SheetName="[in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString]" Text="[CurrentRow.Item(&quot;Valor Unitário (BRL)&quot;).ToString]" />
+                    <ui:ExcelWriteCell Cell="[&quot;E&quot; + initRow.ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="416,124" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_3" SheetName="[in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString]" Text="[CurrentRow.Item(&quot;QTY&quot;).ToString]" />
                     <Assign sap:VirtualizedContainerService.HintSize="416,170" sap2010:WorkflowViewState.IdRef="Assign_2">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:Int32">[initRow]</OutArgument>
@@ -344,25 +333,33 @@
                   </Sequence>
                 </ActivityAction>
               </ui:ForEachRow.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:ForEachRow>
+            <ui:InvokeVBA OutputValue="{x:Null}" CodeFilePath="Solution\VBA\CalcularTaxas.vbs" DisplayName="Invoke VBA" EntryMethodName="CalcularTaxas" EntryMethodParameters="[{dt_SalesList.Rows(0).Item(&quot;Localidade/UF&quot;).ToString.Split(&quot;/&quot;c).LastOrDefault}]" sap:VirtualizedContainerService.HintSize="452,115" sap2010:WorkflowViewState.IdRef="InvokeVBA_3" />
           </Sequence>
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
+    <ui:KillProcess AppliesTo="{x:Null}" ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="604,167" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="excel" />
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="604,175" sap2010:WorkflowViewState.IdRef="LogMessage_19" Message="[&quot;Create PDF file&quot;]" />
-    <Sequence DisplayName="PDF" sap:VirtualizedContainerService.HintSize="604,1342" sap2010:WorkflowViewState.IdRef="Sequence_17">
+    <Sequence DisplayName="PDF" sap:VirtualizedContainerService.HintSize="604,1153" sap2010:WorkflowViewState.IdRef="Sequence_17">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="570,731" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1" MacroSettings="EnableAll">
+      <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" ProcessMode="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="570,735" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1" MacroSettings="EnableAll" ShowExcelWindow="False">
         <ueab:ExcelProcessScopeX.Body>
           <ActivityAction x:TypeArguments="ui:IExcelProcess">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="ui:IExcelProcess" Name="ExcelProcessScopeTag" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="536,612" sap2010:WorkflowViewState.IdRef="Sequence_21">
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="536,616" sap2010:WorkflowViewState.IdRef="Sequence_21">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -380,7 +377,7 @@
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <ueab:SaveAsPdfX EndPage="{x:Null}" StartPage="{x:Null}" DestinationPdfPath="[&quot;Data\Temp\Sales Report_&quot; + in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString + &quot;.pdf&quot;]" DisplayName="Save Excel File As PDF" sap:VirtualizedContainerService.HintSize="434,188" sap2010:WorkflowViewState.IdRef="SaveAsPdfX_1" SaveQuality="StandardQuality" Workbook="[Excel]" />
+                      <ueab:SaveAsPdfX EndPage="{x:Null}" StartPage="{x:Null}" DestinationPdfPath="[&quot;Data\Output\Sales Report_&quot; + in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString + &quot;.pdf&quot;]" DisplayName="Save Excel File As PDF" sap:VirtualizedContainerService.HintSize="434,188" sap2010:WorkflowViewState.IdRef="SaveAsPdfX_1" SaveQuality="StandardQuality" Workbook="[Excel]" />
                     </Sequence>
                   </ActivityAction>
                 </ueab:ExcelApplicationCard.Body>
@@ -390,8 +387,7 @@
         </ueab:ExcelProcessScopeX.Body>
       </ueab:ExcelProcessScopeX>
       <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="570,175" sap2010:WorkflowViewState.IdRef="LogMessage_20" Message="[&quot;Set File password&quot;]" />
-      <upap:ManagePDFPassword DisplayName="Manage PDF Password" FileName="[&quot;Data\Temp\Sales Report_&quot; + in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString + &quot;.pdf&quot;]" sap:VirtualizedContainerService.HintSize="570,169" sap2010:WorkflowViewState.IdRef="ManagePDFPassword_1" NewUserPassword="[in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString.Remove(0, 2)]" OutputFileName="[&quot;Data\Output\Sales Report_&quot; + in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString + &quot;.pdf&quot;]" />
-      <ui:MoveFile ContinueOnError="{x:Null}" DestinationResource="{x:Null}" PathResource="{x:Null}" Destination="Data\Output" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="570,184" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="True" Path="Data\Temp\SalesList.xlsx" />
+      <upap:ManagePDFPassword DisplayName="Manage PDF Password" FileName="[&quot;Data\Output\Sales Report_&quot; + in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString + &quot;.pdf&quot;]" sap:VirtualizedContainerService.HintSize="570,160" sap2010:WorkflowViewState.IdRef="ManagePDFPassword_1" NewUserPassword="[in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString.Remove(0, 2)]" OutputFileName="[&quot;Data\Output\Sales Report_&quot; + in_TransactionItem.SpecificContent(&quot;VendorID&quot;).ToString + &quot;.pdf&quot;]" />
     </Sequence>
   </Sequence>
 </Activity>

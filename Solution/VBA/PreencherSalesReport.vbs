@@ -6,12 +6,12 @@ Sub PreencherCabecalhoSalesReport(pVendorId As String, pVendorName As String, pP
     Dim startRow As Long: startRow = 18
     Dim i As Long
 
-    ' Renomear aba
+
     On Error Resume Next
-    ws.Name = Left(vendor_id, 31)
+    ws.Name = pVendorId
     On Error GoTo 0
 
-   
+    ws.Range("C7").Value = Format(Date, "MM/dd/yyyy")
     ws.Range("B9").Value = pVendorName 
     ws.Range("B12").Value = pPhone 
     ws.Range("B13").Value = pEmail 
@@ -21,5 +21,5 @@ Sub PreencherCabecalhoSalesReport(pVendorId As String, pVendorName As String, pP
     ws.Range("B10").Value = pEndereco
     ws.Range("B11").Value = pBairro & ", " & pCidadeUF
 
-
+    ws.Range("B35").Value = Replace(ws.Range("B35").Value, "MM/DD/YYYY", Format(Date, "MM/dd/yyyy"))
 End Sub
